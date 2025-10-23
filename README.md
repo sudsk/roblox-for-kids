@@ -367,19 +367,38 @@ Let's make it the perfect size for a floor:
 
 1. **Keep the Scale tool selected** (press R if needed)
 
-2. **Make it wide and long:**
-   - Drag the handles until the block is about **50 x 1 x 50**
-   - That means: 50 studs wide, 1 stud tall, 50 studs long
+2. **Watch the bottom of your screen** as you drag
+   - You'll see numbers appear: "Size: X, Y, Z"
+   - **X** = Width (left to right)
+   - **Y** = Height (up and down)  
+   - **Z** = Length (forward and back)
 
-3. **How to see the exact size:**
-   - Look at the **bottom of your screen** as you drag
-   - You'll see numbers like "Size: 50, 1, 50"
-   - Try to get close to 50, 1, 50
+3. **Make it LONG so obstacles can fit:**
+   - Drag the handles until you see something like: "Size: 50, 1, 150"
+   - **Width: 50** studs (left to right)
+   - **Height: 1** stud (keeps it flat!)
+   - **Length: 150** studs (forward and back) - This is IMPORTANT! Needs to be long!
+
+**Why 150 studs long?**
+- Each obstacle platform is about 10 studs
+- Gaps between platforms are about 10 studs
+- We need space for: Spawn + 3 obstacles + gaps + checkpoint + win block
+- 150 studs gives us plenty of room!
+
+**💡 How to read the size numbers at the bottom:**
+- As you drag the white balls, numbers update at the bottom
+- They look like: **Size: 50, 1, 150**
+- **First number (50)**: Width - can be 40-60, doesn't matter much
+- **Middle number (1)**: Height - MUST be 1 to stay flat!
+- **Last number (150)**: Length - needs to be 100-200 for obstacles to fit!
 
 **💡 Tips:**
-- The **middle number (height)** should be **1** - this makes it flat like a floor!
 - Don't worry about being exactly perfect!
-- If it's too big or too small, just adjust it!
+- Width can be 40-60 studs (doesn't matter much)
+- Height MUST be **1** (flat floor)
+- **Length is the important one - make it 100-200 studs!**
+- If you make it too short, obstacles won't fit!
+- You can always change it later!
 
 ---
 
@@ -606,7 +625,91 @@ We're making THREE different types of obstacles:
 2. **Moving Platform** - A platform that moves back and forth (tricky!)
 3. **Disappearing Platform** - A platform that vanishes when you step on it (surprise!)
 
-Let's start!
+### Visual Guide - How It Should Look
+
+Here's a bird's eye view (looking down from above) of what we're building:
+
+```
+KITCHEN FLOOR LAYOUT (Side View):
+===========================================
+
+START
+  ↓
+[SPAWN]─┐
+        │
+[FLOOR──┼────────────────────────────]  ← Your main kitchen floor
+        │
+        ↓
+     [RED]  ← First jump platform
+        
+        ↓  (GAP - must jump!)
+        
+     [RED]  ← Second jump platform
+        
+        ↓
+        
+     [BLUE] ← Moving platform (will move ← → later)
+        
+        ↓
+        
+    [YELLOW] ← Disappearing platform (will vanish!)
+        
+        ↓
+        
+  [CHECKPOINT] ← Safe spot! (Bright blue spawn)
+        
+        ↓
+        
+     [GREEN] ← WIN BLOCK! (Finish line)
+      GLOW
+
+
+LEGEND:
+[FLOOR] = Main kitchen floor (big, gray)
+[SPAWN] = Green transparent spawn point
+[RED]   = Jump platforms (2 platforms with gap)
+[BLUE]  = Moving platform (bright blue)
+[YELLOW]= Disappearing platform (yellow, glowy)
+[CHECKPOINT] = Respawn point (bright blue)
+[GREEN] = Win block (big green wall, glowing)
+```
+
+### Top-Down View (Looking from above):
+
+```
+    ╔════════════════════════════════╗
+    ║   MAIN KITCHEN FLOOR (GRAY)    ║
+    ║                                ║
+    ║    [S]  ← You spawn here       ║
+    ║     ↓                          ║
+    ║    🟥  ← First red platform    ║
+    ║     ↓                          ║
+    ║    (gap)                       ║
+    ║     ↓                          ║
+    ║    🟥  ← Second red platform   ║
+    ║     ↓                          ║
+    ║    🟦  ← Blue (moving)         ║
+    ║     ↓                          ║
+    ║    🟨  ← Yellow (disappearing) ║
+    ║     ↓                          ║
+    ║    [C] ← Checkpoint            ║
+    ║     ↓                          ║
+    ║    🟩  ← GREEN WIN BLOCK!      ║
+    ║                                ║
+    ╚════════════════════════════════╝
+
+KEY:
+[S] = Spawn point (green)
+🟥 = Red platform
+🟦 = Blue platform  
+🟨 = Yellow platform
+[C] = Checkpoint
+🟩 = Win block
+```
+
+**What you're building:** A straight path with obstacles going forward!
+
+Let's start building!
 
 ---
 
@@ -623,16 +726,26 @@ This is two platforms with a gap between them. Players have to jump across!
 3. **Press R** to get the Scale tool
 
 4. **Make it smaller** than your main floor:
-   - Drag the handles to make it about **10 x 1 x 10**
-   - That means: 10 wide, 1 tall, 10 long
-   - It should look like a small square platform
+   - **Look at the bottom of your screen** while dragging
+   - Drag the white ball handles
+   - **Try to get the numbers to show: "10, 1, 10"**
+   - First number = Width (10)
+   - Middle number = Height (1) - keep this at 1!
+   - Last number = Length (10)
+
+**How to measure 10 x 1 x 10:**
+- Click and drag a white ball
+- **Watch the bottom of the screen**
+- Numbers update as you drag: "Size: 10, 1, 10"
+- Get close to those numbers - doesn't have to be exact!
 
 5. **Press M** to get the Move tool
 
 6. **Move it forward** from your spawn point:
-   - Use the BLUE arrow to drag it forward
-   - Put it about 5-10 studs ahead of the spawn
-   - Make sure it's at a good jumping height from the spawn area
+   - Use the BLUE arrow (it moves things forward/backward)
+   - Drag it forward until there's space between spawn and platform
+   - About the length of 1-2 of your platforms is good
+   - Don't worry about exact distance - just eyeball it!
 
 **💡 Tip:** If you can't see it well, **zoom out** with your mouse wheel!
 
@@ -677,9 +790,47 @@ Now we need another platform to jump TO!
    - Not too big (impossible!)
 
 **How to check the gap size:**
-- Look at the bottom of Studio while dragging
-- It shows the distance
-- Aim for about 8-10 studs between them
+
+Look at your obstacles from the side. They should look like this:
+
+```
+SIDE VIEW OF JUMP GAP:
+
+     Player
+       👤
+        ↓
+    ┌──────┐         ┌──────┐
+    │ RED  │  (gap)  │ RED  │
+    │  1   │ <─────> │  2   │
+    └──────┘         └──────┘
+    
+    ↑                ↑
+    Start here      Land here
+    
+GAP should be about THIS WIDE: ←─────→
+(2-3 character widths when you test)
+```
+
+**Testing the jump visually:**
+
+```
+When you test (Press F5):
+
+TOO EASY (gap too small):
+   👤
+   ↓_↓  ← Can walk across, no jump needed
+  [  ][  ]
+
+JUST RIGHT:
+   👤
+    ↓──→  ← Need to run and jump!
+  [  ] (gap) [  ]
+
+TOO HARD (gap too big):
+   👤
+    ↓───────→ ❌ ← Can't reach!
+  [  ]   (gap)     [  ]
+```
 
 #### Step 5: Test The Jump!
 
@@ -795,6 +946,20 @@ We need to make sure players can stand on it (for now)!
 
 Now let's make sure players can reach each obstacle!
 
+```
+CHECK YOUR LAYOUT - Does it look like this?
+
+SIDE VIEW:
+┌─────┐    ┌────┐ (gap) ┌────┐    ┌─────┐    ┌──────┐    [C]    ┌─────┐
+│START│ →  │RED │       │RED │ →  │BLUE │ →  │YELLOW│ →  │CP  │ → │WIN! │
+└─────┘    └────┘       └────┘    └─────┘    └──────┘    └────┘   └─────┘
+
+ALL PLATFORMS SHOULD BE:
+✓ At about the same height (so you can jump between them)
+✓ Reachable from the previous one
+✓ Not too far apart (test by playing!)
+```
+
 #### Add Connecting Platforms (If Needed)
 
 Look at your obstacles:
@@ -816,6 +981,19 @@ Look at your obstacles:
 4. **Move it** between obstacles where needed
 
 5. **Don't forget to Anchor it!** ✓
+
+```
+EXAMPLE - Adding a bridge platform:
+
+BEFORE (too far apart):
+[RED] ←─────── big gap ────────→ [BLUE]
+        ❌ Can't jump this!
+
+AFTER (added gray bridge):
+[RED] ← small gap → [GRAY] ← small gap → [BLUE]
+                     ↑
+              Safe bridge!
+```
 
 **💡 Design Tip:**
 - **Bright colors** (red, blue, yellow) = Special/challenging
