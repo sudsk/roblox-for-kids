@@ -868,7 +868,248 @@ Let's see if players can make the jump!
 
 4. **Press Escape** to stop testing
 
-**🎉 You made your first obstacle!**
+**🎉 You now have a working obstacle course! Next we'll make it even cooler with code!**
+
+---
+
+### ⚠️ IMPORTANT: Adding Death/Kill Zones
+
+**Right now, players can walk on the main floor forever without dying!** Let's fix that by adding "lava" or a "void" that kills players if they fall off platforms.
+
+#### Option 1: Delete the Main Floor Entirely (Simplest!)
+
+The easiest solution - just remove the big floor!
+
+**What To Do:**
+
+1. **Find your main gray floor** (the big 50x1x150 one)
+
+2. **Click on it** to select it
+
+3. **Press Delete**
+
+**Now what happens?**
+- Players MUST stay on the obstacle platforms!
+- If they miss a jump, they fall into the void below
+- They respawn at their last checkpoint
+- This is how most obbies work!
+
+**Pros:**
+- Simple - no extra code needed
+- Classic obby style
+- Players can see the void below (scary!)
+
+**Cons:**
+- No fancy visual effects
+- Background might look empty
+
+---
+
+#### Option 2: Add Kill Blocks Under Everything (Cooler!)
+
+Keep the floor but add "lava" blocks that kill you if you touch them!
+
+**What To Do:**
+
+**Step 1: Create the Kill Zone**
+
+1. **Press Ctrl+P** to make a new Part
+
+2. **Press R** to Scale it
+
+3. **Make it HUGE** - bigger than your floor:
+   - Size: **100 x 20 x 200** (very wide and long)
+
+4. **Press M** to Move it
+
+5. **Position it UNDER your platforms**
+   - Use the GREEN arrow to drag it down
+   - Put it way below so players fall onto it
+
+**Step 2: Make it Look Dangerous**
+
+1. **Select the kill block**
+
+2. **In Properties:**
+   - **BrickColor**: "Really red" or "Bright red"
+   - **Material**: "Neon" (makes it glow like lava!)
+   - **Transparency**: 0 (fully visible) or 0.2 (slightly see-through)
+   - **Anchored**: ✓ Checked
+   - **CanCollide**: ✓ Checked (so players land on it)
+
+**Step 3: Add the Kill Script**
+
+1. **Right-click the kill block** in Explorer
+
+2. **Insert Object** → **Script**
+
+3. **Double-click** the script
+
+4. **Delete the default code**
+
+5. **Type this:**
+
+```lua
+local killPart = script.Parent
+
+killPart.Touched:Connect(function(hit)
+    local humanoid = hit.Parent:FindFirstChild("Humanoid")
+    if humanoid then
+        humanoid.Health = 0  -- Kills the player instantly
+    end
+end)
+```
+
+**What this does:**
+- When anything touches the red block...
+- Check if it's a player (has a Humanoid)
+- If yes, set their health to 0 (instant death!)
+- They respawn at their last checkpoint!
+
+**Step 4: Test It!**
+
+1. **Click Play** (▶)
+
+2. **Jump off a platform**
+
+3. **Fall onto the red block**
+
+4. **You should die and respawn!**
+
+**Step 5: What About the Main Floor?**
+
+Now you have two choices:
+
+**Choice A: Delete the main floor**
+- Just delete it - you don't need it anymore!
+- Kill block is the new "floor"
+
+**Choice B: Make the main floor kill you too**
+- Add the same kill script to your main floor
+- Now walking on the floor = death!
+- Only platforms are safe!
+
+To make the floor deadly:
+1. Right-click main floor → Insert Object → Script
+2. Use the same kill script from above
+3. Now ONLY the obstacle platforms are safe!
+
+---
+
+#### Option 3: Invisible Kill Zone (Professional Look)
+
+Make the death zone invisible - players just fall into emptiness!
+
+**What To Do:**
+
+1. **Follow Option 2** to create the kill block
+
+2. **But change these properties:**
+   - **Transparency**: 1 (completely invisible!)
+   - **CanCollide**: ✓ Still checked
+
+3. **Add the same kill script**
+
+**Result:**
+- Players fall into what looks like empty space
+- When they hit the invisible block, they die
+- Looks cleaner and more professional!
+
+---
+
+#### Which Option Should You Choose?
+
+**For beginners (easiest):**
+- **Option 1** - Just delete the main floor!
+- Simplest and most common in obbies
+
+**For cool visuals:**
+- **Option 2** - Red glowing "lava" that kills you
+- Fun and clear danger indicator
+
+**For professional look:**
+- **Option 3** - Invisible death zone
+- Clean appearance, nothing distracting
+
+**💡 My Recommendation for Your First Obby:**
+- Start with **Option 1** (delete main floor)
+- Super simple, no extra code
+- You can always add fancy kill zones later!
+
+---
+
+### Testing Your Kill System:
+
+After implementing any option:
+
+1. **Click Play** (▶)
+
+2. **Try to walk off the platforms**
+
+3. **What should happen:**
+   - You fall
+   - You die
+   - You respawn at last checkpoint (or start if no checkpoints touched yet)
+
+4. **If you DON'T die:**
+   - Check the kill block has the script inside it
+   - Check script has no errors (View → Output)
+   - Check kill block is positioned below platforms
+   - Check kill block's CanCollide is ON ✓
+
+---
+
+### Adding Kill Zones in Multiple Places:
+
+You can add kill blocks anywhere!
+
+**Common places:**
+- **Under everything** - catch all falls
+- **Between sections** - if you miss a jump
+- **As obstacles** - "hot lava" players must avoid
+
+**To add more:**
+1. Select your kill block
+2. Press Ctrl+D to duplicate
+3. Move it to new position
+4. The script copies automatically!
+
+---
+
+### Making Different Types of Kill Zones:
+
+**Lava (Red, glowing):**
+```
+BrickColor: Really red
+Material: Neon
+Transparency: 0
+```
+
+**Poison/Acid (Green, glowing):**
+```
+BrickColor: Lime green  
+Material: Neon
+Transparency: 0.3
+```
+
+**Void/Space (Dark, scary):**
+```
+BrickColor: Really black
+Material: Neon
+Transparency: 0.5
+```
+
+**Invisible (Clean):**
+```
+Transparency: 1
+(But keep CanCollide ON!)
+```
+
+---
+
+**🎉 Now your obby has actual challenge! Players must stay on platforms or face the consequences!**
+
+**Save your game!** Press Ctrl+S
 
 ---
 
