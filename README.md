@@ -629,87 +629,103 @@ We're making THREE different types of obstacles:
 
 Here's a bird's eye view (looking down from above) of what we're building:
 
+**IMPORTANT:** Your main floor needs to be LONG (like 150 studs) to fit everything!
+
 ```
 KITCHEN FLOOR LAYOUT (Side View):
-===========================================
+============================================
 
-START
-  ↓
-[SPAWN]─┐
-        │
-[FLOOR──┼────────────────────────────]  ← Your main kitchen floor
-        │
-        ↓
-     [RED]  ← First jump platform
-        
-        ↓  (GAP - must jump!)
-        
-     [RED]  ← Second jump platform
-        
-        ↓
-        
-     [BLUE] ← Moving platform (will move ← → later)
-        
-        ↓
-        
-    [YELLOW] ← Disappearing platform (will vanish!)
-        
-        ↓
-        
-  [CHECKPOINT] ← Safe spot! (Bright blue spawn)
-        
-        ↓
-        
-     [GREEN] ← WIN BLOCK! (Finish line)
-      GLOW
+Let's do the math:
+- Spawn area: 10 studs
+- Red platform 1: 10 studs
+- Gap: 10 studs
+- Red platform 2: 10 studs  
+- Space to blue: 10 studs
+- Blue platform: 10 studs
+- Space to yellow: 10 studs
+- Yellow platform: 10 studs
+- Space to checkpoint: 10 studs
+- Checkpoint: 10 studs
+- Space to win: 20 studs
+- Win block: 15 studs
+TOTAL: About 135 studs needed!
+
+So your floor should be 50 x 1 x 150 (or bigger!)
+
+THE PATH:
+=========
+
+[SPAWN]
+   ↓ (10 studs)
+   
+[RED #1]  ← 10x1x10 platform
+   ↓ (10 stud GAP - must jump!)
+   
+[RED #2]  ← 10x1x10 platform
+   ↓ (10 studs)
+   
+[BLUE]    ← 10x1x10 platform (moves ← →)
+   ↓ (10 studs)
+   
+[YELLOW]  ← 8x1x8 platform (disappears!)
+   ↓ (10 studs)
+   
+[CHECKPOINT] ← spawn point
+   ↓ (20 studs - safe walk)
+   
+[GREEN]   ← 15x15x1 WIN BLOCK (big wall!)
+  FINISH!
 
 
 LEGEND:
-[FLOOR] = Main kitchen floor (big, gray)
-[SPAWN] = Green transparent spawn point
-[RED]   = Jump platforms (2 platforms with gap)
-[BLUE]  = Moving platform (bright blue)
-[YELLOW]= Disappearing platform (yellow, glowy)
-[CHECKPOINT] = Respawn point (bright blue)
-[GREEN] = Win block (big green wall, glowing)
+[SPAWN] = Green transparent spawn (where you start)
+[RED]   = Jump platforms (bright red, 10x10 size)
+[BLUE]  = Moving platform (bright blue, 10x10)
+[YELLOW]= Disappearing platform (yellow glow, 8x8)
+[CHECKPOINT] = Respawn point (bright blue spawn)
+[GREEN] = Win block (big green glowing wall)
 ```
 
 ### Top-Down View (Looking from above):
 
 ```
-    ╔════════════════════════════════╗
-    ║   MAIN KITCHEN FLOOR (GRAY)    ║
-    ║                                ║
-    ║    [S]  ← You spawn here       ║
-    ║     ↓                          ║
-    ║    🟥  ← First red platform    ║
-    ║     ↓                          ║
-    ║    (gap)                       ║
-    ║     ↓                          ║
-    ║    🟥  ← Second red platform   ║
-    ║     ↓                          ║
-    ║    🟦  ← Blue (moving)         ║
-    ║     ↓                          ║
-    ║    🟨  ← Yellow (disappearing) ║
-    ║     ↓                          ║
-    ║    [C] ← Checkpoint            ║
-    ║     ↓                          ║
-    ║    🟩  ← GREEN WIN BLOCK!      ║
-    ║                                ║
-    ╚════════════════════════════════╝
+╔════════════════════════════════════════════════════════════╗
+║          MAIN KITCHEN FLOOR (GRAY)                         ║
+║          50 studs wide x 150 studs long                    ║
+║                                                            ║
+║    [S]     ← You spawn here (at one end)                  ║
+║     ↓                                                      ║
+║    🟥      ← First red platform (10x10)                   ║
+║     ↓                                                      ║
+║    ...     ← Gap (empty space - 10 studs)                 ║
+║     ↓                                                      ║
+║    🟥      ← Second red platform (10x10)                  ║
+║     ↓                                                      ║
+║    🟦      ← Blue moving platform (10x10)                 ║
+║     ↓                                                      ║
+║    🟨      ← Yellow disappearing (8x8)                    ║
+║     ↓                                                      ║
+║    [C]     ← Checkpoint                                   ║
+║     ↓                                                      ║
+║     ↓      ← Safe walking space                           ║
+║     ↓                                                      ║
+║    🟩      ← GREEN WIN BLOCK! (15x15 wall)                ║
+║                                                            ║
+╚════════════════════════════════════════════════════════════╝
 
-KEY:
-[S] = Spawn point (green)
-🟥 = Red platform
-🟦 = Blue platform  
-🟨 = Yellow platform
-[C] = Checkpoint
-🟩 = Win block
+SCALE COMPARISON:
+Floor:      50 studs wide ═══════════════════════════
+Platform:   10 studs wide ══════════
+Gap:        10 studs      ══════════
 ```
 
-**What you're building:** A straight path with obstacles going forward!
+**Important Size Notes:**
+- **Main floor**: 50 x 1 x 150 (LONG rectangle, not square!)
+- **Obstacle platforms**: 10 x 1 x 10 (small squares)
+- **Gaps**: About 10 studs (leaves room for jumping)
+- **Win block**: 15 x 15 x 1 (bigger, like a wall)
 
-Let's start building!
+If your floor is only 50x50, you'll run out of space! Make it 150 studs long!
 
 ---
 
@@ -1405,6 +1421,8 @@ Click the **X** on the script tab to close it and go back to your 3D view.
 
 Now let's make that blue platform move back and forth!
 
+**IMPORTANT:** We need to use **TweenService** (not TweenPosition) because it works better with anchored parts!
+
 #### Step 1: Find Your Blue Platform
 
 1. **In Explorer**, find your blue platform
@@ -1419,96 +1437,104 @@ Now let's make that blue platform move back and forth!
 #### Step 3: Delete Default Code and Type This:
 
 ```lua
+local TweenService = game:GetService("TweenService")
 local part = script.Parent
-local startPosition = part.Position
-local endPosition = startPosition + Vector3.new(20, 0, 0)
-local speed = 2
 
-while true do
-    part:TweenPosition(endPosition, "Out", "Sine", speed, true)
-    wait(speed)
-    part:TweenPosition(startPosition, "Out", "Sine", speed, true)
-    wait(speed)
-end
+-- Remember starting position
+local startCFrame = part.CFrame
+-- Calculate ending position (20 studs to the right)
+local endCFrame = startCFrame * CFrame.new(20, 0, 0)
+
+-- Tween settings
+local tweenInfo = TweenInfo.new(
+    2,  -- Time to move (2 seconds)
+    Enum.EasingStyle.Linear,  -- Move at constant speed
+    Enum.EasingDirection.InOut,  -- Smooth start and end
+    -1,  -- Repeat forever (-1 means infinite)
+    true,  -- Reverse (go back and forth)
+    0  -- No delay
+)
+
+-- What we're changing (the CFrame/position)
+local goal = {CFrame = endCFrame}
+
+-- Create and play the tween
+local tween = TweenService:Create(part, tweenInfo, goal)
+tween:Play()
 ```
 
 #### Step 4: Understanding This Code
 
-**Line 1:** `local part = script.Parent`
-- Find the platform this script is inside
+**Line 1:** `local TweenService = game:GetService("TweenService")`
+- Gets Roblox's TweenService
+- This is the proper way to move anchored parts!
 
-**Line 2:** `local startPosition = part.Position`
-- Remember where the platform starts
-- `Position` is where something is in the world
+**Line 2:** `local part = script.Parent`
+- Finds the platform this script is inside
 
-**Line 3:** `local endPosition = startPosition + Vector3.new(20, 0, 0)`
-- Calculate where it should move TO
-- `Vector3.new(20, 0, 0)` means:
+**Line 5:** `local startCFrame = part.CFrame`
+- **CFrame** is the part's position AND rotation
+- Remembers where it starts
+
+**Line 7:** `local endCFrame = startCFrame * CFrame.new(20, 0, 0)`
+- Calculates where it should move TO
+- `CFrame.new(20, 0, 0)` means:
   - **20** studs to the RIGHT (X direction)
   - **0** studs up/down (Y direction)
   - **0** studs forward/back (Z direction)
 
-**Line 4:** `local speed = 2`
-- How many seconds it takes to move
-- 2 = slow and easy
-- 1 = faster
-- 5 = very slow
+**Lines 10-16:** `local tweenInfo = TweenInfo.new(...)`
+- **2** = Takes 2 seconds to move
+- **Linear** = Moves at constant speed
+- **-1** = Repeats forever!
+- **true** = Reverses (goes back and forth automatically!)
 
-**Line 6:** `while true do`
-- Repeat forever!
-- `while true` means "keep doing this over and over"
+**Line 19:** `local goal = {CFrame = endCFrame}`
+- We're tweening the **CFrame** (position)
+- NOT Position or other properties
 
-**Line 7:** `part:TweenPosition(endPosition, ...)`
-- **Smoothly move** to the end position
-- `Tween` means smooth animation (not instant)
-- `"Out"` and `"Sine"` control how it moves (smooth)
-
-**Line 8:** `wait(speed)`
-- Wait for the movement to finish
-
-**Lines 9-10:** Move back to start
-- Same thing but going back to where it started
-
-**Line 11:** `end`
-- Closes the `while` loop
-- Then it starts the loop again!
+**Lines 22-23:** Create and play the tween
+- `TweenService:Create` makes the tween
+- `tween:Play()` starts it moving!
 
 #### Step 5: Customizing the Movement
 
 **Want it to move a different direction?**
 
-Change Line 3:
+Change Line 7:
 
 ```lua
 -- Move RIGHT:
-local endPosition = startPosition + Vector3.new(20, 0, 0)
+local endCFrame = startCFrame * CFrame.new(20, 0, 0)
 
 -- Move LEFT:
-local endPosition = startPosition + Vector3.new(-20, 0, 0)
+local endCFrame = startCFrame * CFrame.new(-20, 0, 0)
 
 -- Move UP:
-local endPosition = startPosition + Vector3.new(0, 20, 0)
+local endCFrame = startCFrame * CFrame.new(0, 20, 0)
 
 -- Move DOWN:
-local endPosition = startPosition + Vector3.new(0, -20, 0)
+local endCFrame = startCFrame * CFrame.new(0, -20, 0)
 
 -- Move FORWARD:
-local endPosition = startPosition + Vector3.new(0, 0, 20)
+local endCFrame = startCFrame * CFrame.new(0, 0, 20)
 
 -- Move BACKWARD:
-local endPosition = startPosition + Vector3.new(0, 0, -20)
+local endCFrame = startCFrame * CFrame.new(0, 0, -20)
 
 -- Move DIAGONALLY (right and up):
-local endPosition = startPosition + Vector3.new(20, 10, 0)
+local endCFrame = startCFrame * CFrame.new(20, 10, 0)
 ```
 
 **Want it faster or slower?**
 
-Change Line 4:
+Change the first number in TweenInfo.new (Line 11):
 
 ```lua
-local speed = 1  -- Faster
-local speed = 5  -- Slower
+local tweenInfo = TweenInfo.new(
+    1,  -- Faster (1 second)
+    -- or
+    5,  -- Slower (5 seconds)
 ```
 
 #### Step 6: Save and Close
@@ -1533,18 +1559,30 @@ local speed = 5  -- Slower
 
 **Platform doesn't move?**
 - Check the Output window for errors (View → Output)
-- Make sure you saved the script
+- Make sure you saved the script (Ctrl+S)
 - Make sure the script is inside the platform
+- Look for red error text in Output
 
-**Platform moves weird?**
-- Try different numbers in Vector3.new()
-- Make sure all three numbers are there (X, Y, Z)
+**Platform moves weird or jittery?**
+- Make sure **Anchored** is checked ✓
+- Try changing EasingStyle to "Sine" for smoother movement
+- Make sure you're using **CFrame**, not Position
+
+**Error says "attempt to index nil"?**
+- The script can't find the platform
+- Make sure it's INSIDE the platform in Explorer
+
+**Why use CFrame instead of Position?**
+- CFrame works better with anchored parts
+- CFrame includes rotation too
+- Position sometimes doesn't work smoothly
+- CFrame is the professional way!
 
 ---
 
 ### SCRIPT #3: Win Block (Finish Line!)
 
-Let's make a BIG GREEN BLOCK at the end that says "YOU WON!" when you touch it!
+Let's make a BIG GREEN BLOCK at the end that shows a message when you touch it!
 
 #### Step 1: Create the Win Block
 
@@ -1579,6 +1617,8 @@ First we need to make the block!
 
 #### Step 3: Type This Code:
 
+**IMPORTANT:** We're using a modern GUI method, not the old deprecated "Message" instance!
+
 ```lua
 local part = script.Parent
 
@@ -1587,11 +1627,25 @@ part.Touched:Connect(function(hit)
     if humanoid then
         local player = game.Players:GetPlayerFromCharacter(hit.Parent)
         if player then
-            local message = Instance.new("Message")
-            message.Text = player.Name .. " has escaped the kitchen!"
-            message.Parent = workspace
+            -- Create a ScreenGui for the message
+            local screenGui = Instance.new("ScreenGui")
+            screenGui.Parent = player.PlayerGui
+            
+            -- Create the text label
+            local textLabel = Instance.new("TextLabel")
+            textLabel.Parent = screenGui
+            textLabel.Size = UDim2.new(1, 0, 0.2, 0)  -- Full width, 20% height
+            textLabel.Position = UDim2.new(0, 0, 0.4, 0)  -- Centered vertically
+            textLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)  -- Black background
+            textLabel.BackgroundTransparency = 0.3  -- Slightly see-through
+            textLabel.Text = player.Name .. " has escaped the kitchen!"
+            textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White text
+            textLabel.TextScaled = true
+            textLabel.Font = Enum.Font.GothamBold
+            
+            -- Remove after 3 seconds
             wait(3)
-            message:Destroy()
+            screenGui:Destroy()
         end
     end
 end)
@@ -1614,32 +1668,76 @@ end)
 **Line 7:** `if player then`
 - If we successfully found the player...
 
-**Line 8:** `local message = Instance.new("Message")`
-- Create a new message object
-- `Instance.new` means "make a new thing"
+**Lines 9-10:** `local screenGui = Instance.new("ScreenGui")`
+- Create a new GUI (on-screen display)
+- Put it in the player's PlayerGui (their screen)
+- **This is the modern way!** Not using deprecated "Message"
 
-**Line 9:** `message.Text = player.Name .. " has escaped the kitchen!"`
-- Set what the message says
-- `player.Name` is their username
-- `..` joins text together
-- So if player is "SuperKid123", it says "SuperKid123 has escaped the kitchen!"
+**Lines 13-21:** Creating the text label
+- **Size**: Full width, 20% of screen height
+- **Position**: Centered on screen
+- **BackgroundColor3**: Black background
+- **BackgroundTransparency**: 0.3 = slightly see-through
+- **Text**: Shows "[PlayerName] has escaped the kitchen!"
+- **TextColor3**: White text
+- **TextScaled**: Makes text fit nicely
+- **Font**: Bold font
 
-**Line 10:** `message.Parent = workspace`
-- Show the message on screen!
-- `workspace` is the game world
-
-**Line 11:** `wait(3)`
+**Line 24:** `wait(3)`
 - Keep message on screen for 3 seconds
 
-**Line 12:** `message:Destroy()`
-- Remove the message
-- `Destroy()` means delete it
+**Line 25:** `screenGui:Destroy()`
+- Remove the message and clean up
 
-**Lines 13-14:** Close the `if` statements
+#### Step 5: Customizing the Win Message
 
-**Line 15:** Close the function
+**Want different text?**
 
-#### Step 5: Save, Close, and TEST!
+Change Line 18:
+```lua
+textLabel.Text = "🎉 VICTORY! " .. player.Name .. " is a champion! 🎉"
+-- or
+textLabel.Text = "You did it! Great job!"
+-- or
+textLabel.Text = player.Name .. " completed the obby in record time!"
+```
+
+**Want different colors?**
+
+```lua
+-- Gold/yellow text:
+textLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
+
+-- Green background:
+textLabel.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+
+-- Red text:
+textLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+```
+
+**Want it bigger or smaller?**
+
+Change Line 14:
+```lua
+-- Bigger (40% of screen):
+textLabel.Size = UDim2.new(1, 0, 0.4, 0)
+
+-- Smaller (10% of screen):
+textLabel.Size = UDim2.new(1, 0, 0.1, 0)
+```
+
+**Want it at top or bottom instead of middle?**
+
+Change Line 15:
+```lua
+-- At top:
+textLabel.Position = UDim2.new(0, 0, 0, 0)
+
+-- At bottom:
+textLabel.Position = UDim2.new(0, 0, 0.8, 0)
+```
+
+#### Step 6: Save, Close, and TEST!
 
 1. **Save** (Ctrl+S)
 
@@ -1649,9 +1747,30 @@ end)
 
 4. **Complete your obby** and touch the green block!
 
-5. **A message appears!** "YourName has escaped the kitchen!"
+5. **A message appears on your screen!** "YourName has escaped the kitchen!"
 
 **IT WORKS!** 🎉🎉🎉
+
+#### If It Doesn't Work:
+
+**No message appears?**
+- Check Output window (View → Output) for errors
+- Make sure the script is inside the green win block
+- Make sure you actually touched the block
+
+**Message appears but looks weird?**
+- That's okay! You can customize it with the code above
+- Experiment with sizes and positions
+
+**Error about "PlayerGui"?**
+- Make sure the player variable is valid
+- The code checks for this, so it should work
+
+**Why not use "Message" instance?**
+- The old "Message" instance is deprecated and not recommended for new work
+- ScreenGui + TextLabel is the modern, proper way
+- More customizable and looks better
+- Works on all devices (PC, mobile, console)
 
 ---
 
@@ -1661,7 +1780,7 @@ You just added three awesome scripts! Save everything!
 
 **Press Ctrl+S** (Command+S)
 
-**🎉 CONGRATULATIONS! You just learned to code! You made things disappear, move, and show messages!**
+**🎉 CONGRATULATIONS! You just learned to code! You made things disappear, move, and show messages on screen!**
 
 ---
 
